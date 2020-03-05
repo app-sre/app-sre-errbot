@@ -1,0 +1,6 @@
+errbot==6.1
+dataclasses
+slackclient==1.3
+
+-e git://github.com/app-sre/qontract-reconcile.git@4552feae5bd2096d026586e04331f73f09bbd62c#egg=reconcile
+graphqlclient
