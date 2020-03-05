@@ -24,6 +24,9 @@ venv/bin/activate: requirements.txt
 	. venv/bin/activate; pip install -r requirements.txt
 	touch venv/bin/activate
 
+run: venv
+	. venv/bin/activate; errbot
+
 clean:
 	rm -rf venv
 	git clean -Xfd
