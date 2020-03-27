@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: app-sre-errbot
+objects:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app: app-sre-errbot
+    name: app-sre-errbot
+  spec:
+    replicas: ${{REPLICAS}}
+    selector:
+      matchLabels:
+        app: app-sre-errbot
+    template:
+      metadata:
+        labels:
+          app: app-sre-errbot
+      spec:
+        containers:
+        - name: app-sre-errbot
+          image: ${IMAGE}:${IMAGE_TAG}
+          env:
+          - name: SLACK_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: app-sre-errbot
+                key: SLACK_TOKEN
+          - name: GQL_SERVER
+            valueFrom:
+              secretKeyRef:
+                name: app-sre-errbot
+                key: GQL_SERVER
+          - name: GQL_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: app-sre-errbot
+                key: GQL_TOKEN
+          ports:
+          - containerPort: 2112
+            name: metrics
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 150Mi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: app-sre-errbot
+    name: app-sre-errbot
+  spec:
+    selector:
+      app: app-sre-errbot
+    ports:
+    - name: metrics
+      protocol: TCP
+      port: 2112
+      targetPort: 2112
+    type: ClusterIP
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: app-sre-errbot
+  data:
+    SLACK_TOKEN: Y2hhbmdlbWU=
+    GQL_SERVER: Y2hhbmdlbWU=
+    GQL_TOKEN: Y2hhbmdlbWU=
+parameters:
+- name: IMAGE
+  value: quay.io/app-sre/app-sre-errbot
+- name: IMAGE_TAG
+  value: latest
+- name: REPLICAS
+  value: "1"
