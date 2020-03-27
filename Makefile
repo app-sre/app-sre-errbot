@@ -24,6 +24,13 @@ venv/bin/activate: requirements.txt
 	. venv/bin/activate; pip install -r requirements.txt
 	touch venv/bin/activate
 
+venv-test: venv-test/bin/activate
+
+venv-test/bin/activate: requirements-test.txt
+	test -d venv-test || python -mvenv venv-test
+	. venv-test/bin/activate; pip install -r requirements-test.txt
+	touch venv-test/bin/activate
+
 run: venv
 	. venv/bin/activate; errbot
 
@@ -31,9 +38,9 @@ clean:
 	rm -rf venv
 	git clean -Xfd
 
-check:
-	flake8 plugins
-	pylint plugins
+check: venv-test
+	. venv-test/bin/activate; flake8 plugins
+	. venv-test/bin/activate; pylint plugins
 
 image: build
 	docker build -t $(REPO):$(TAG) Dockerfile .
