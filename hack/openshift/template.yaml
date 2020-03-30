@@ -44,11 +44,11 @@ objects:
             protocol: TCP
           resources:
             limits:
+              cpu: 500m
+              memory: 500Mi
+            requests:
               cpu: 100m
               memory: 150Mi
-            requests:
-              cpu: 10m
-              memory: 50Mi
           volumeMounts:
           - name: data
             mountPath: /opt/app-root/errbot/data
