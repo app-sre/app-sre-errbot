@@ -20,14 +20,14 @@ all:
 venv: venv/bin/activate
 
 venv/bin/activate: requirements.txt
-	test -d venv || python -mvenv venv
+	test -d venv || python3 -mvenv venv
 	. venv/bin/activate; pip install -r requirements.txt
 	touch venv/bin/activate
 
 venv-test: venv-test/bin/activate
 
 venv-test/bin/activate: requirements-test.txt
-	test -d venv-test || python -mvenv venv-test
+	test -d venv-test || python3 -mvenv venv-test
 	. venv-test/bin/activate; pip install -r requirements-test.txt
 	touch venv-test/bin/activate
 
