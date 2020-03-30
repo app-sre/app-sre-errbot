@@ -1,9 +1,10 @@
+"""This is an errbot module to interract with app-interface"""
+
 import os
 
 from itertools import chain
 
 from errbot import BotPlugin, botcmd
-from errbot import ValidationException
 
 from reconcile import queries
 
@@ -16,7 +17,7 @@ CONFIG_TEMPLATE = {
 }
 
 
-class AppInterface(BotPlugin):
+class AppInterface(BotPlugin):  # pylint: disable=too-many-ancestors
     """Query app-interface information."""
 
     def configure(self, configuration):
@@ -38,11 +39,8 @@ class AppInterface(BotPlugin):
     def get_configuration_template(self):
         return CONFIG_TEMPLATE
 
-    def activate(self):
-        super(AppInterface, self).activate()
-
     @botcmd(split_args_with=None, template='ai_find_user')
-    def ai_find_user(self, msg, args):
+    def ai_find_user(self, _, args):
         """Find users in app-interface"""
 
         if len(args) < 1:
@@ -65,7 +63,10 @@ class AppInterface(BotPlugin):
                 continue
 
         if len(found) > 50:
-            return f"Search for term '{term}' returned more than 50 results. Please refine your search"
+            return (
+                f"Search for term '{term}' returned more than 50 results. "
+                f"Please refine your search"
+            )
 
         if len(found) == 0:
             return f"No user found matching term '{term}'"
@@ -73,7 +74,7 @@ class AppInterface(BotPlugin):
         return {'users': found}
 
     @botcmd(split_args_with=None, template='ai_get_user')
-    def ai_get_user(self, msg, args):
+    def ai_get_user(self, _, args):
         """Show a single user from app-interface"""
 
         if len(args) < 1:
@@ -98,7 +99,7 @@ class AppInterface(BotPlugin):
         return {'user': found}
 
     @botcmd(split_args_with=None, template='ai_find_cluster')
-    def ai_find_cluster(self, msg, args):
+    def ai_find_cluster(self, _, args):
         """Search clusters registered in app-interface"""
 
         if len(args) < 1:
@@ -114,9 +115,9 @@ class AppInterface(BotPlugin):
         clusters = queries.get_clusters()
 
         found = []
-        for c in clusters:
-            if term in c['name'].lower():
-                found.append(c)
+        for cluster in clusters:
+            if term in cluster['name'].lower():
+                found.append(cluster)
 
         if len(found) == 0:
             return f"No clusters found for term '{term}'."
@@ -124,7 +125,7 @@ class AppInterface(BotPlugin):
         return {'clusters': found}
 
     @botcmd(split_args_with=None, template='ai_get_cluster')
-    def ai_get_cluster(self, msg, args):
+    def ai_get_cluster(self, _, args):
         """Show a single cluster from app-interface"""
 
         if len(args) < 1:
@@ -149,7 +150,7 @@ class AppInterface(BotPlugin):
         return {'cluster': found}
 
     @botcmd(split_args_with=None, template='ai_find_namespace')
-    def ai_find_namespace(self, msg, args):
+    def ai_find_namespace(self, _, args):
         """Search namespaces registered in app-interface"""
 
         if len(args) < 1:
@@ -165,9 +166,9 @@ class AppInterface(BotPlugin):
         namespaces = queries.get_namespaces()
 
         found = []
-        for n in namespaces:
-            if term in n['name'].lower():
-                found.append(n)
+        for namespace in namespaces:
+            if term in namespace['name'].lower():
+                found.append(namespace)
 
         if len(found) == 0:
             return f"No namespaces found for term '{term}'."
@@ -175,7 +176,7 @@ class AppInterface(BotPlugin):
         return {'namespaces': found}
 
     @botcmd(split_args_with=None, template='ai_find_app')
-    def ai_find_app(self, msg, args):
+    def ai_find_app(self, _, args):
         """Search apps registered in app-interface"""
 
         if len(args) < 1:
@@ -191,9 +192,9 @@ class AppInterface(BotPlugin):
         apps = queries.get_apps()
 
         found = []
-        for n in apps:
-            if term in n['name'].lower():
-                found.append(n)
+        for app in apps:
+            if term in app['name'].lower():
+                found.append(app)
 
         if len(found) == 0:
             return f"No apps found for term '{term}'."

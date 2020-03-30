@@ -28,6 +28,7 @@ venv-test: venv-test/bin/activate
 
 venv-test/bin/activate: requirements-test.txt
 	test -d venv-test || python3 -mvenv venv-test
+	. venv-test/bin/activate; pip install -r requirements.txt
 	. venv-test/bin/activate; pip install -r requirements-test.txt
 	touch venv-test/bin/activate
 
