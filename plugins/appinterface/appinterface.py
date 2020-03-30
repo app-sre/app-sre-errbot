@@ -17,7 +17,7 @@ CONFIG_TEMPLATE = {
 }
 
 
-class AppInterface(BotPlugin):
+class AppInterface(BotPlugin):  # pylint: disable=too-many-ancestors
     """Query app-interface information."""
 
     def configure(self, configuration):
