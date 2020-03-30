@@ -49,6 +49,12 @@ objects:
             requests:
               cpu: 10m
               memory: 50Mi
+          volumeMounts:
+          - name: data
+            mountPath: /opt/app-root/errbot/data
+        volumes:
+        - name: data
+          emptyDir: {}
 - apiVersion: v1
   kind: Service
   metadata:
