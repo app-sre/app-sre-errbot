@@ -127,7 +127,7 @@ BOT_ADMINS_NOTIFICATIONS = BOT_ADMINS
 # Uncomment the following and set it to True if you want the prefix to be
 # optional for normal chat.
 # (Meaning messages sent directly to the bot as opposed to within a MUC)
-BOT_PREFIX_OPTIONAL_ON_CHAT = True
+BOT_PREFIX_OPTIONAL_ON_CHAT = False
 
 # You might wish to have your bot respond by being called with certain
 # names, rather than the BOT_PREFIX above. This option allows you to
@@ -188,7 +188,10 @@ BOT_ALT_PREFIXES = ('@app-sre-bot',)
 #                   'help': {'allowmuc': False},
 #                   'ChatRoom:*': {'allowusers': BOT_ADMINS},
 #                  }
-ACCESS_CONTROLS = {'Health:*': {'allowusers': BOT_ADMINS}}
+ACCESS_CONTROLS = {
+    '*': {'allowrooms': ('#sd-app-sre-teamchat')},
+    'Health:*': {'allowusers': BOT_ADMINS},
+}
 
 # Uncomment and set this to True to hide the restricted commands from
 # the help output.
@@ -196,7 +199,7 @@ HIDE_RESTRICTED_COMMANDS = True
 
 # Uncomment and set this to True to ignore commands from users that have no
 # access for these instead of replying with error message.
-#HIDE_RESTRICTED_ACCESS = False
+HIDE_RESTRICTED_ACCESS = True
 
 # A list of commands which should be responded to in private, even if
 # the command was given in a MUC. For example:
