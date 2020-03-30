@@ -12,6 +12,7 @@ RUN mkdir -p /opt/app-root/errbot/{data,plugins}
 
 COPY config.py /opt/app-root/errbot
 COPY run.sh /opt/app-root/errbot
+COPY plugins/ /opt/app-root/errbot/plugins/
 
 WORKDIR /opt/app-root/errbot
 
