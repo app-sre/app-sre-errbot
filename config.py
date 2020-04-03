@@ -189,7 +189,7 @@ BOT_ALT_PREFIXES = ('@app-sre-bot',)
 #                   'ChatRoom:*': {'allowusers': BOT_ADMINS},
 #                  }
 ACCESS_CONTROLS = {
-    '*': {'allowrooms': ('#sd-app-sre-teamchat',)},
+    '*': {'allowrooms': ('#sd-app-sre-teamchat','#sd-app-sre-sandbox',)},
     'Health:*': {'allowusers': BOT_ADMINS},
 }
 
