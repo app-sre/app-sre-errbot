@@ -92,7 +92,7 @@ BOT_IDENTITY = {
 #
 # Unix-style glob patterns are supported, so 'gbin@localhost'
 # would be considered an admin if setting '*@localhost'.
-BOT_ADMINS = os.environ['BOT_ADMINS'].split(',')
+BOT_ADMINS = tuple(os.environ['BOT_ADMINS'].split(','))
 
 # Set of admins that wish to receive administrative bot notifications.
 #BOT_ADMINS_NOTIFICATIONS = ()
@@ -133,7 +133,7 @@ BOT_PREFIX_OPTIONAL_ON_CHAT = False
 # names, rather than the BOT_PREFIX above. This option allows you to
 # specify alternative prefixes the bot will respond to in addition to
 # the prefix above.
-BOT_ALT_PREFIXES = os.environ['BOT_ALT_PREFIXES'].split(',')
+BOT_ALT_PREFIXES = tuple(os.environ['BOT_ALT_PREFIXES'].split(','))
 
 # If you use alternative prefixes, you might want to allow users to insert
 # separators like , and ; between the prefix and the command itself. This
@@ -188,7 +188,7 @@ BOT_ALT_PREFIXES = os.environ['BOT_ALT_PREFIXES'].split(',')
 #                   'help': {'allowmuc': False},
 #                   'ChatRoom:*': {'allowusers': BOT_ADMINS},
 #                  }
-ACCESS_CONTROLS_ALLOWROOMS = os.environ['ACCESS_CONTROLS_ALLOWROOMS'].split(',')
+ACCESS_CONTROLS_ALLOWROOMS = tuple(os.environ['ACCESS_CONTROLS_ALLOWROOMS'].split(','))
 ACCESS_CONTROLS = {
     '*': {'allowrooms': ACCESS_CONTROLS_ALLOWROOMS},
     'Health:*': {'allowusers': BOT_ADMINS},
