@@ -38,6 +38,12 @@ objects:
               secretKeyRef:
                 name: app-sre-errbot
                 key: GQL_TOKEN
+          - name: BOT_ADMINS
+            value: "${BOT_ADMINS}"
+          - name: ACCESS_CONTROLS_ALLOWROOMS
+            value: "${ACCESS_CONTROLS_ALLOWROOMS}"
+          - name: BOT_ALT_PREFIXES
+            value: "${BOT_ALT_PREFIXES}"
           ports:
           - containerPort: 2112
             name: metrics
@@ -85,3 +91,12 @@ parameters:
   value: latest
 - name: REPLICAS
   value: "1"
+- name: BOT_ADMINS
+  value: "@jchevret"
+  description: "comma separated list of bot admins"
+- name: ACCESS_CONTROLS_ALLOWROOMS
+  value: "#sd-app-sre-teamchat,#sd-app-sre-sandbox"
+  description: "comma separated list of allowed rooms"
+- name: BOT_ALT_PREFIXES
+  value: "@app-sre-bot"
+  description: "comma separated list of bot alternate prefixes"
